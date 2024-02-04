@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Bootstrap demo</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="contain">
+            <section class="first">
+                <h1 class=" text-light  px-4">TODO <i class="bi bi-person-circle float-end "></i></h1>
+    
+                <div class="col-md-5 fw-medium  p-3 text-center" style="font-size: 1.2rem ; color: rgba(0, 0, 0, 0.673);">Enhance your workflow with a dynamic task management solution for seamless organization and productivity.</div>
+    
+                <div class="d-flex flex-column bg-light-subtle rounded ">
+                    <input type="text" name="heading" id="heading" placeholder="TODO"> 
+                    
+                    <textarea name="body" placeholder="Body" id="body" cols="30" rows="4"></textarea>  
+                    <button type="button" id="add-btn" >Add</button>   
+                </div>   
+            </section>
+    
+            <section class="second">
+                <div class="col-8 border ">
+                    <div class="col-lg-3 my-card" noteid = "${note.id1}">
+                        <div class="mycard-title px-3 pt-2">
+                            My TODO app
+                        </div>
+                        <div class="mycard-body fs-5 px-3 pt-1 ">This is body
+                        </div>
+                        <div class="mycard-data">
+                            <span>Date</span>
+                            <span>
+                                <i class="bi bi-pencil text-primary mx-2"></i>
+                                <i class="bi bi-trash text-danger mx-1"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 my-card" noteid = "${note.id2}">
+                        <div class="mycard-title px-3 pt-2">
+                            My TODO app
+                        </div>
+                        <div class="mycard-body fs-5 px-3 pt-1 ">This is body
+                        </div>
+                        <div class="mycard-data">
+                            <span>Date</span>
+                            <span>
+                                <i class="bi bi-pencil text-primary mx-2"></i>
+                                <i class="bi bi-trash text-danger mx-1"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 my-card" noteid = "${note.id3}">
+                        <div class="mycard-title px-3 pt-2">
+                            My TODO app
+                        </div>
+                        <div class="mycard-body fs-5 px-3 pt-1 ">This is body
+                        </div>
+                        <div class="mycard-data">
+                            <span>Date</span>
+                            <span>
+                                <i class="bi bi-pencil text-primary mx-2"></i>
+                                <i class="bi bi-trash text-danger mx-1"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 my-card" noteid = "${note.id4}">
+                        <div class="mycard-title px-3 pt-2">
+                            My TODO app
+                        </div>
+                        <div class="mycard-body fs-5 px-3 pt-1 ">This is body
+                        </div>
+                        <div class="mycard-data">
+                            <span>Date</span>
+                            <span>
+                                <i class="bi bi-pencil text-primary mx-2"></i>
+                                <i class="bi bi-trash text-danger mx-1"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 my-card" noteid = "${note.id5}">
+                        <div class="mycard-title px-3 pt-2">
+                            My TODO app
+                        </div>
+                        <div class="mycard-body fs-5 px-3 pt-1 ">This is body
+                        </div>
+                        <div class="mycard-data">
+                            <span>Date</span>
+                            <span>
+                                <i class="bi bi-pencil text-primary mx-2"></i>
+                                <i class="bi bi-trash text-danger mx-1"></i>
+                            </span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </section>
+
+        </div>
+
+        <div class="delete col-10 col-md-4">
+
+            <div class="fs-5 fw-medium mt-3">Are you sure, you want to delete this note?</div>
+            <div class="p-4">
+                <button type="button" id="del-yes-btn" class="" >YES</button>
+                <button type="button" id="del-no-btn" >NO</button>
+            </div>
+        </div>
+
+        <div class="edit col-10 col-md-4">
+            <div class="d-flex flex-column bg-light-subtle">
+                <input type="text" name="heading" id="heading" value="${note.title}" > 
+                
+                <textarea name="body"  id="body" cols="30" rows="4">"${note.body}"</textarea>  
+                <div class="d-flex justify-content-between px-4 pt-2">
+                    <button type="button" id="note-edit-btn" >Edit</button>   
+                    <button type="button" id="note-cancel-btn" >Cancel</button>  
+
+                </div>
+            </div>
+        </div>
+
+        <div class="profile col-3  border">
+            <h4><i class="bi bi-x-lg"></i></h4>
+            <h1><i class="bi bi-person-fill"></i></h1>
+            <h6>Siddharth jain</h1>
+            <p>jainsiddharth.rattan1@gmail.com</p>
+            <button>Reset Password</button>
+        </div>
+
+        <!-- <div class="fake-screen">
+            dc
+        </div> -->
+
+        <script src="home.js"></script>
+    </body>
+</html>

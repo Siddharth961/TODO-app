@@ -1,0 +1,337 @@
+.contain {
+    transition: 0.2s;
+}
+body::-webkit-scrollbar {
+    display: none;
+}
+.signup-container {
+    height: 100vh;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-container .col-lg-3 {
+    background-color: #ff0800e1;
+    padding: 1rem 1.6rem;
+    box-shadow: 0px 0px 15px #ff033ed3;
+    border-radius: 0.5rem;
+    /* height: fit-content; */
+}
+
+.signup-container button {
+    background-color: #f7f7f7 !important;
+    font-weight: 500;
+    font-size: 1.2rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 1rem;
+
+    width: 100%;
+    transition-duration: 0.4s;
+}
+
+.sign-up-btn:hover {
+    background-color: #ff0040c4 !important;
+    color: #f7f7f7;
+    border: 2px solid black;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.801);
+}
+
+.log-in-btn:hover {
+    color: #ff0040c4;
+    box-shadow: 0px 0px 10px black;
+}
+
+@font-face {
+    font-family: go_bear;
+    src: url('Go\ Bear.ttf');
+}
+
+.first {
+    height: 48vh;
+
+    background-color: #ff0800;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.6rem;
+    align-items: center;
+
+    transition-duration: 0.6s;
+    -o-transition-timing-function: ease-in-out;
+    /* overflow: hidden; */
+}
+
+.first h1 {
+    width: 100vw;
+    font-family: go_bear;
+    min-height: 10vh;
+}
+
+.first i{
+    cursor:pointer;
+}
+
+.first input {
+    width: 50vw;
+    padding: 0.2rem 1rem;
+    border-radius: 0.4rem;
+    outline: none;
+}
+
+textarea {
+    width: 50vw;
+    height: 10vh;
+    padding: 0.2rem 1rem;
+    border: none;
+    resize: none;
+    outline: none;
+    background-color: rgba(128, 128, 128, 0.085);
+}
+.first textarea {
+    /* display: none; */
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    transition-delay: 0.2s;
+    transition-duration: 1s;
+    transition-property: opacity;
+}
+
+textarea.active {
+    position: relative;
+    opacity: 1;
+    z-index: 2;
+}
+
+.first button {
+    width: 5rem;
+    margin: 0.2rem;
+    border-radius: 0.4rem;
+    background-color: #ff0800;
+    color: white;
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    transition: 0.4s;
+}
+.first button.active {
+    position: relative;
+    opacity: 1;
+    z-index: 2;
+}
+
+.first button:hover {
+    background-color: transparent;
+    color: #ff0800;
+    /* border-color: #ff0800; */
+    box-shadow: 0px 0px 4px red;
+}
+.second {
+    background-color: #fdfcfa;
+}
+.second .col-8 {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.my-card {
+    height: 18rem;
+    width: 12rem;
+    /* width: 20vw !important; */
+    border: 2px solid black;
+    border-radius: 0.8rem;
+    margin: 0.8rem;
+    background-color: rgba(128, 128, 128, 0.068);
+    overflow: hidden;
+}
+
+.mycard-title {
+    border-bottom: 1px solid black;
+    height: 20%;
+    font-size: 1.4rem;
+    font-weight: 600;
+    background-color: rgba(0, 0, 0, 0.725);
+    color: aliceblue;
+    overflow: hidden;
+}
+
+.mycard-body {
+    font-weight: 500;
+    height: 66%;
+    border-bottom: 1px solid black;
+    overflow: hidden;
+}
+
+.mycard-data {
+    height: 14%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0rem 1rem;
+    padding-bottom: 0.2rem;
+}
+
+.bi-pencil:hover {
+    box-shadow: 0px 3px 4px #3b71ca;
+}
+.bi-trash:hover {
+    box-shadow: 0px 3px 6px #dc4c64;
+}
+
+.delete {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    background-color: rgba(255, 255, 255, 0.851);
+    border-radius: 1rem;
+    /* height: 8rem; */
+    padding: .6rem 1rem;   
+    text-align: center;
+    align-items: center;
+    justify-content: space-evenly;
+
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    display: none;
+}
+
+.delete button {
+    margin: .5rem 2rem;
+    
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.6rem;
+}
+
+.delete #del-yes-btn {
+    background-color: #ff0800;
+    color: white;
+    transition-duration: 0.2s;
+}
+.delete #del-no-btn {
+    background-color: white;
+    color: #3b71ca;
+    transition-duration: 0.2s;
+}
+
+#del-yes-btn:hover {
+    box-shadow: 0px 0px 8px #ff0800;
+}
+#del-no-btn:hover {
+    box-shadow: 0px 0px 4px #3b72cac2;
+}
+
+.edit {
+    border: 2px solid black;
+    border-radius: 0.6rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    display: none;
+}
+.edit input {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.452);
+    outline: none;
+}
+.edit textarea {
+    width: 100%;
+    height: 20vh;
+}
+.edit button {
+    /* width: 5vw; */
+    margin-bottom: 0.8rem;
+    border-radius: 0.4rem;
+    background-color: white;
+    color: #ff0800;
+    font-weight: 500;
+
+    transition: 0.6s;
+}
+
+#note-edit-btn:hover {
+    background-color: #ff0800;
+    color: white;
+    box-shadow: 0px 0px 12px #ff0800af;
+}
+
+.profile {
+    min-width:fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.329);
+    padding: 1rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    position: fixed;
+    z-index: -2;    
+    opacity: 0;
+    
+}
+.profile.active{
+    top: 4%;
+    right: 1%;
+    opacity: 1;
+    z-index: 20;
+    animation-name: profile_ani;
+    animation-duration: .4s;
+    animation-timing-function: ease-in-out;
+    transform-origin: 100% 10%;
+}
+
+@keyframes profile_ani {
+    0%{
+        min-width: none;
+        transform: scale(0.1);
+        /* transform: scaleY(0.1); */
+        opacity: 0;
+    }
+    100%{
+        min-width: fit-content;
+        transform: scale(1);
+        opacity: 1;
+    }
+
+}
+.profile .bi-x-lg{
+    position: absolute;
+    right: 8%;
+    color: gray;
+    cursor: pointer;
+}
+.profile h1 {
+    font-size: 4rem;
+}
+
+.profile button {
+    margin: 0.2rem;
+    border-radius: 0.4rem;
+    background-color: #ff0800;
+    color: white;
+    font-weight: 700;
+    padding: 0.2rem 0.8rem;
+}
+
+/* .fake-screen{
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    z-index: 10;
+    border: 8px solid black;
+    background-color: transparent;
+    top: 0px;
+} */
