@@ -1,4 +1,5 @@
 const express = require('express');
+const compression = require('compression')
 
 const app = express();
 
@@ -8,6 +9,7 @@ app.set('views', `${__dirname}/views`);
 app.use(express.json());
 app.use(express.static(`${__dirname}/public`));
 
+app.use(compression())
 const middle = express.urlencoded({ extended: false });
 
 app.get('/', (req, res) => {
