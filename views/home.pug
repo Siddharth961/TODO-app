@@ -3,10 +3,11 @@ html(lang='en')
   head
     meta(charset='utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    title Bootstrap demo
+    title TODO App
     link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css', rel='stylesheet', integrity='sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN', crossorigin='anonymous')
     link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css')
     link(rel='stylesheet', href='style.css')
+    link(rel='shortcut icon', href='logo.jpg', type='image/x-icon')
   body
     .contain
       section.first
@@ -72,11 +73,19 @@ html(lang='en')
               span
                 i.bi.bi-pencil.text-primary.mx-2
                 i.bi.bi-trash.text-danger.mx-1
+      footer
+        div
+          | Copyright 
+          i.bi.bi-c-circle
+          |  2024. All rights preserved.
+        div Sid Developer
+    // Delete Note
     .delete.col-10.col-md-4
       .fs-5.fw-medium.mt-3 Are you sure, you want to delete this note?
       .p-4
         button#del-yes-btn(type='button') YES
         button#del-no-btn(type='button') NO
+    // Edit note
     .edit.col-10.col-md-4
       .d-flex.flex-column.bg-light-subtle
         input#heading(type='text', name='heading', value='${note.title}')
@@ -85,6 +94,7 @@ html(lang='en')
         .d-flex.justify-content-between.px-4.pt-2
           button#note-edit-btn(type='button') Edit
           button#note-cancel-btn(type='button') Cancel
+    // Profile
     .profile.col-3.border
       h4
         i.bi.bi-x-lg
@@ -92,9 +102,25 @@ html(lang='en')
         i.bi.bi-person-fill
       h6 Siddharth jain
       p jainsiddharth.rattan1@gmail.com
-      button Reset Password
+      button Change Password
     //
       <div class="fake-screen">
       dc
       </div>
+    // Reset Password
+    .reset.col-lg-3.col-10.p-3
+      h4
+        i.bi.bi-x-lg.float-end
+      form(action='/reset', enctype='application/x-www-form-urlencoded', method='POST')
+        .fs-3.text-center.mb-4 Change Password
+        .mb-3
+          label.form-label(for='password') Current Password
+          input#exampleInputPassword1.form-control(name='password', type='password', placeholder='*********')
+        .mb-3
+          label.form-label(for='passwordNew') New Password
+          input#exampleInputPassword1.form-control(name='passwordNew', type='password', placeholder='*********')
+        .mb-4
+          label.form-label(for='passwordConfirm') Confirm Password
+          input#exampleInputPassword1.form-control(name='passwordConfirm', type='password', placeholder='*********')
+        button.btn.pass-update-btn(type='submit') Update Password
     script(src='home.js')

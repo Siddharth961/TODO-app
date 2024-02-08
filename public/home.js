@@ -124,7 +124,28 @@ profile_cross.addEventListener( 'click', () =>{
 
 })
 
+//-----------Reset----------
+const reset = profile_panel.querySelector('button')
+const reset_panel = document.querySelector('.reset')
+const pass_update = reset_panel.querySelector('button')
+const reset_cross = reset_panel.querySelector('.bi')
+
+reset.addEventListener('click',()=>{
+    reset_panel.classList.add('active')
+    container.style.filter = 'blur(2px)';
+    profile_panel.style.filter = 'blur(2px)';
+})
+
+reset_cross.addEventListener('click',()=>{
+    unblur_body()
+})
+
+pass_update.addEventListener('click', ()=>{
+    unblur_body()
+})
+
 // utilities
+
 const blur_body = function () {
     container.style.filter = 'blur(2px)';
     delete_panel.style.display = 'flex';
@@ -132,6 +153,8 @@ const blur_body = function () {
 
 const unblur_body = function () {
     container.style.filter = '';
+    profile_panel.style.filter = '';
+    reset_panel.classList.remove('active')
     delete_panel.style.display = 'none';
     edit_panel.style.display = 'none';
 };

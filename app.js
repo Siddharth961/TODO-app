@@ -1,5 +1,5 @@
 const express = require('express');
-const compression = require('compression')
+const compression = require('compression');
 
 const app = express();
 
@@ -9,7 +9,7 @@ app.set('views', `${__dirname}/views`);
 app.use(express.json());
 app.use(express.static(`${__dirname}/public`));
 
-app.use(compression())
+app.use(compression());
 const middle = express.urlencoded({ extended: false });
 
 app.get('/', (req, res) => {
@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/signup', middle, (req, res) => {
-    res.status(200).render(home);
+    res.status(200).render('home');
 });
 
 app.get('/signup-page', (req, res) => {
