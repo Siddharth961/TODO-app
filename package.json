@@ -4,14 +4,21 @@
   "description": "Todo app project",
   "main": "app.js",
   "scripts": {
-    "test": "nodemon app.js"
+    "test": "nodemon server.js"
   },
   "author": "Siddharth Jain",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "compression": "^1.7.4",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.1",
     "express": "^4.18.2",
+    "mongodb": "^6.3.0",
+    "mongoose": "^8.1.1",
+    "morgan": "^1.10.0",
     "nodemon": "^3.0.3",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "validator": "^13.11.0"
   }
 }
