@@ -1,9 +1,12 @@
 const express = require('express');
 const compression = require('compression');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser')
 
 const noteRouter = require('./Routes/noteRoutes');
+const userRouter = require('./Routes/userRoutes');
 const errorHandler = require('./Controllers/errorController');
+const authController = require('./Controllers/authController');
 const appError = require('./utils/appError');
 
 const app = express();
@@ -13,10 +16,15 @@ app.set('views', `${__dirname}/views`);
 
 app.use(express.json());
 app.use(express.static(`${__dirname}/public`));
+
 //Development Logging
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
+
+//----------cookie parsing--------------
+app.use(cookieParser())
+
 // app.use(compression());
 const middle = express.urlencoded({ extended: false });
 
@@ -37,6 +45,10 @@ const middle = express.urlencoded({ extended: false });
 // });
 
 app.use('/notes', noteRouter);
+app.use('/users', userRouter);
+
+app.post('/signup', authController.signup);
+app.post('/login', authController.login);
 
 app.all('*', (req, res, next) => {
     const err = new appError(
