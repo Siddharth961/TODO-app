@@ -30,12 +30,15 @@ const userSchema = mongoose.Schema({
             message: 'Please enter same password.'
         }
     },
-    passwordChangedAt: Date
+    passwordChangedAt: Date,
+
+    passwordResetToken: String,
+    passwordResetExpires: Date
 });
 
 //-----------------------Encrypt password--------------------
 userSchema.pre('save', async function (next) {
-    if (!this.isModified('password')) next();
+    if (!this.isModified('password')) return next();
     this.password = await bcrypt.hash(this.password, 12);
     this.passwordConfirm = undefined;
     next();
@@ -43,9 +46,9 @@ userSchema.pre('save', async function (next) {
 
 //--------------Update passwwordChangedAt field-------------------
 userSchema.pre('save', function (next) {
-    if (!this.isModified('password') || this.isNew) next();
-    this.passwordChangedAt = Date.now()-1000;
-    next()
+    if (!this.isModified('password') || this.isNew) return next();
+    this.passwordChangedAt = Date.now() - 1000;
+    next();
 });
 
 //----------------------Check Password--------------------------
@@ -53,7 +56,28 @@ userSchema.methods.checkPassword = async function (candidate, actual) {
     return await bcrypt.compare(candidate, actual);
 };
 
-userSchema.methods.isPasswordModified = function (time) {};
+userSchema.methods.isPasswordModified = function (time) {
+    if (this.passwordChangedAt) {
+        const timeStamp = parseInt(this.passwordChangedAt.getTime() / 1000, 10);
+
+        return time < timeStamp;
+    }
+
+    return false;
+};
+
+//---------------Create Reset Token------------------
+userSchema.methods.createResetToken = function () {
+    const resetToken = crypto.randomBytes(32).toString('hex');
+
+    this.passwordResetToken = crypto
+        .createHash('sha256')
+        .update(resetToken)
+        .digest('hex');
+    this.passwordResetExpires = Date.now() + (10 * 60 * 1000);
+
+    return resetToken;
+};
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;

@@ -11,6 +11,10 @@ const noteSchema = mongoose.Schema({
         required: true,
         maxLength: 600
     },
+    userId : {
+        type : String,
+        required : [true, 'You are not logged in, please log in!']
+    },
     CreatedAt: Date
 });
 

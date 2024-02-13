@@ -3,7 +3,7 @@ const appError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
 exports.getAllNotes = catchAsync(async (req, res, next) => {
-    const notes = await Note.find({}).sort('CreatedAt');
+    const notes = await Note.find({userId : req.user.id}).sort('CreatedAt');
     res.status(200).json({
         status: 'success',
         length: notes.length,
@@ -22,6 +22,7 @@ exports.getNote = catchAsync(async (req, res, next) => {
 });
 
 exports.createNote = catchAsync(async (req, res, next) => {
+    req.body.userId = req.user.id
     const note = await Note.create(req.body);
     res.status(201).json({
         status: 'success',

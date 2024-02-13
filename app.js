@@ -47,8 +47,7 @@ const middle = express.urlencoded({ extended: false });
 app.use('/notes', noteRouter);
 app.use('/users', userRouter);
 
-app.post('/signup', authController.signup);
-app.post('/login', authController.login);
+
 
 app.all('*', (req, res, next) => {
     const err = new appError(
