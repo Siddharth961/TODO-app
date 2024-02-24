@@ -33,16 +33,13 @@
                 <div class="col-8 border ">
                     <div class="col-lg-3 my-card" noteid = "${note.id1}">
                         <div class="mycard-title px-3 pt-2">
-                            My TODO app
+                            My TODO app Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis minima quis obcaecati deleniti non quibusdam placeat provident ab nemo repellendus!
                         </div>
                         <div class="mycard-body fs-5 px-3 pt-1 ">This is body
                         </div>
                         <div class="mycard-data">
                             <span>Date</span>
-                            <span>
-                                <i class="bi bi-pencil text-primary mx-2"></i>
-                                <i class="bi bi-trash text-danger mx-1"></i>
-                            </span>
+                            
                         </div>
                     </div>
                     <div class="col-lg-3 my-card" noteid = "${note.id2}">
@@ -53,10 +50,7 @@
                         </div>
                         <div class="mycard-data">
                             <span>Date</span>
-                            <span>
-                                <i class="bi bi-pencil text-primary mx-2"></i>
-                                <i class="bi bi-trash text-danger mx-1"></i>
-                            </span>
+                            
                         </div>
                     </div>
                     <div class="col-lg-3 my-card" noteid = "${note.id3}">
@@ -67,10 +61,7 @@
                         </div>
                         <div class="mycard-data">
                             <span>Date</span>
-                            <span>
-                                <i class="bi bi-pencil text-primary mx-2"></i>
-                                <i class="bi bi-trash text-danger mx-1"></i>
-                            </span>
+                            
                         </div>
                     </div>
                     <div class="col-lg-3 my-card" noteid = "${note.id4}">
@@ -81,10 +72,7 @@
                         </div>
                         <div class="mycard-data">
                             <span>Date</span>
-                            <span>
-                                <i class="bi bi-pencil text-primary mx-2"></i>
-                                <i class="bi bi-trash text-danger mx-1"></i>
-                            </span>
+                            
                         </div>
                     </div>
                     <div class="col-lg-3 my-card" noteid = "${note.id5}">
@@ -95,10 +83,7 @@
                         </div>
                         <div class="mycard-data">
                             <span>Date</span>
-                            <span>
-                                <i class="bi bi-pencil text-primary mx-2"></i>
-                                <i class="bi bi-trash text-danger mx-1"></i>
-                            </span>
+                            
                         </div>
                     </div>
                     
@@ -130,8 +115,8 @@
                 
                 <textarea name="body"  id="body" cols="30" rows="4">"${note.body}"</textarea>  
                 <div class="d-flex justify-content-between px-4 pt-2">
-                    <button type="button" id="note-edit-btn" >Edit</button>   
-                    <button type="button" id="note-cancel-btn" >Cancel</button>  
+                    <button type="button" id="note-edit-btn" class="red">Edit</button>   
+                    <button type="button" id="note-delete-btn" class="red-inverse" >Delete</button>  
 
                 </div>
             </div>
@@ -150,32 +135,33 @@
             dc
         </div> -->
 
-        <!-- Reset Password -->
-        <div class="reset  col-lg-3 col-10 p-3">
+        <!-- update Password -->
+        <div class="update  col-lg-3 col-10 p-3">
             <h4><i class="bi bi-x-lg float-end"></i></h4>
 
             
-              <form action="/reset" enctype="application/x-www-form-urlencoded" method="POST">
+              <form autocomplete="false">
                 <div class="fs-3 text-center mb-4 ">Change Password</div>
                 
                 <div class="mb-3">
-                  <label class="form-label" for="password">Current Password</label>
-                  <input class="form-control" id="exampleInputPassword1" name="password" type="password" placeholder="*********"/>
+                  <label class="form-label" for="oldPassword">Current Password</label>
+                  <input class="form-control" id="oldPassword" name="oldPassword" type="password" placeholder="*********"/>
                 </div>
 
                 <div class="mb-3">
-                  <label class="form-label" for="passwordNew">New Password</label>
-                  <input class="form-control" id="exampleInputPassword1" name="passwordNew" type="password" placeholder="*********"/>
+                  <label class="form-label" for="password">New Password</label>
+                  <input class="form-control" id="password" name="password" type="password" placeholder="*********"/>
                 </div>
                 <div class="mb-4">
                   <label class="form-label" for="passwordConfirm">Confirm Password</label>
-                  <input class="form-control" id="exampleInputPassword1" name="passwordConfirm" type="password" placeholder="*********"/>
+                  <input class="form-control" id="passwordConfirm" name="passwordConfirm" type="password" placeholder="*********"/>
                 </div>
                 <button class="btn pass-update-btn" type="submit">Update Password</button>
               </form>
             
         </div>
 
+        <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
         <script src="home.js"></script>
     </body>
 </html>

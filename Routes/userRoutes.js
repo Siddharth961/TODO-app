@@ -13,8 +13,10 @@ Router.patch(
     authController.updatePassword
 );
 
-Router.post('/forgotPassword', authController.forgot)
-Router.patch('/resetPassword/:token', authController.reset)
+Router.delete('/logout', authController.logout);
+
+Router.post('/forgotPassword', authController.forgot);
+Router.patch('/resetPassword/:token', authController.reset);
 
 Router.route('/').get(userController.allUsers);
 

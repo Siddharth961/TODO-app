@@ -1,19 +1,19 @@
 const nodemailer = require('nodemailer');
 
-
 const sendMail = async (options) => {
     //Create transponder
     const transponder = nodemailer.createTransport({
-        host: process.env.MAIL_HOST,
-        port: process.env.MAIL_PORT,
+        // host: process.env.MAIL_HOST,
+        // port: process.env.MAIL_PORT,
+        service: 'gmail',
         auth: {
-            user: process.env.MAIL_USER,
-            pass: process.env.MAIL_PASS
+            user: process.env.GMAIL_USER,
+            pass: process.env.GMAIL_PASS
         }
     });
 
     const mailOptions = {
-        from: ' Siddharth Jain <todo@server.in>',
+        from: process.env.GMAIL_USER,
         to: options.email,
         subject: options.subject,
         text: options.message
@@ -26,4 +26,4 @@ const sendMail = async (options) => {
 //     subject: 'heyoo',
 //     text : 'hugg'
 // })
-module.exports = sendMail
+module.exports = sendMail;

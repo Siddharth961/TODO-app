@@ -15,13 +15,16 @@ const handleCastErrDB = (err) => {
 };
 
 const handleDuplicateFeildsDB = (err) => {
-    const message = `Duplicate field value : '${err.keyValue.name}'. Select other value`;
+    const message = `User with this ${Object.keys(err.keyValue)} already exits.\nPlease select another ${Object.keys(err.keyValue)}.`;
     return new appError(message, 400);
 };
 
 const handleValidationErrDB = (err) => {
     let errors = Object.values(err.errors).map((el) => el.message);
-    const message = `Invalid input data. ${errors.join('. ')}`;
+    let message = `Invalid input data. \n`;
+    errors.forEach((error)=>{
+        message = `${error}\n`
+    })
     return new appError(message, 404);
 };
 
@@ -32,7 +35,6 @@ const handle_JWT_Expire = (err) =>
     new appError('Token expired. Please log in again', 401);
 
 const sendErrProd = (err, res) => {
-    
     if (err.isOperational) {
         res.status(err.statusCode).json({
             status: err.status,
@@ -45,8 +47,8 @@ const sendErrProd = (err, res) => {
 };
 
 module.exports = (err, req, res, next) => {
-    // console.log('-----------------------------------Error Stackk-----------------------------')
-    // console.log(err.stack)
+    // console.log(err)
+
     err.statusCode = err.statusCode || 500;
     console.log(
         'Error happend -- Global error handler-------in error controller'

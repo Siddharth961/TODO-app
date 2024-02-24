@@ -3,7 +3,11 @@ const appError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 
 exports.getAllNotes = catchAsync(async (req, res, next) => {
-    const notes = await Note.find({userId : req.user.id}).sort('CreatedAt');
+    const notes = await Note.find({ userId: req.user.id }).sort('-createDate');
+    if (req.originalUrl == '/home') {
+        req.notes = notes;
+        return next();
+    }
     res.status(200).json({
         status: 'success',
         length: notes.length,
@@ -22,7 +26,7 @@ exports.getNote = catchAsync(async (req, res, next) => {
 });
 
 exports.createNote = catchAsync(async (req, res, next) => {
-    req.body.userId = req.user.id
+    req.body.userId = req.user.id;
     const note = await Note.create(req.body);
     res.status(201).json({
         status: 'success',
@@ -31,13 +35,15 @@ exports.createNote = catchAsync(async (req, res, next) => {
 });
 
 exports.updateNote = catchAsync(async (req, res, next) => {
-    const note = await Note.findByIdAndUpdate(req.params.noteId, req.body, {
-        new: true,
-        runValidators: true
-    });
+    const note = await Note.findById(req.params.id);
 
-    if (note == null) return next(new appError('No data with given Id found.', 404));
-    
+    if (note == null)
+        return next(new appError('No data with given Id found.', 404));
+
+    note.title = req.body.title;
+    note.body = req.body.body;
+
+    await note.save();
 
     res.status(200).json({
         status: 'success',

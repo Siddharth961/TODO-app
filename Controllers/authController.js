@@ -63,6 +63,16 @@ exports.login = catchAsync(async (req, res, next) => {
     createSendToken(user, 200, res);
 });
 
+//-----------------Logout------------------
+exports.logout = (req, res, next) => {
+    
+        
+        res.cookie('jwt', '');
+        res.status(204).json({
+            status: 'success'
+        });
+    
+};
 //--------------------------------------Authenticate (verify if user is logged in)------------------------------------
 exports.authenticate = catchAsync(async (req, res, next) => {
     //Get token
@@ -100,12 +110,17 @@ exports.authenticate = catchAsync(async (req, res, next) => {
 
 //-------------------------------------Update User password (not Reset)-------------------------------
 exports.updatePassword = catchAsync(async (req, res, next) => {
+    console.log(req.body);
     const user = await User.findById(req.user.id);
 
-    const verify = user.checkPassword(req.body.oldPassword, user.password);
+    const verify = await user.checkPassword(
+        req.body.oldPassword,
+        user.password
+    );
 
+    // console.log(verify);
     if (verify == false)
-        return next(new appError('Incoorect User Password', 401));
+        return next(new appError('Incorrect User Password', 401));
 
     user.password = req.body.password;
     user.passwordConfirm = req.body.passwordConfirm;
@@ -180,5 +195,5 @@ exports.reset = catchAsync(async (req, res, next) => {
 
     await user.save();
 
-    createSendToken(user,200,res)
+    createSendToken(user, 200, res);
 });

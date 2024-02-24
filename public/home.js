@@ -1,19 +1,16 @@
+let URL = window.location.protocol + '//' + window.location.hostname;
+if (window.location.port) URL = URL + ':' + window.location.port;
+const container = document.querySelector('.contain');
+
 const first = document.querySelector('.first');
 const heading = document.querySelector('#heading');
 const body = document.querySelector('#body');
 const add_btn = document.querySelector('#add-btn');
 
 const cards = document.querySelectorAll('.my-card');
+let outside = false;
 
-let noteId = '';
-cards.forEach((card) => {
-    card.addEventListener('click', () => {
-        noteId = card.getAttribute('noteid');
-        // console.log(noteId)
-    });
-});
-
-//Add new notee
+//----------------Add new notee---------------------
 let data = {};
 
 add_btn.addEventListener('click', async () => {
@@ -21,10 +18,22 @@ add_btn.addEventListener('click', async () => {
     data['body'] = body.value;
     console.log(data);
 
-    const response = await fetch('/note/add', {
-        method: 'post',
-        body: data
-    });
+    try {
+        let res = await axios({
+            method: 'POST',
+            url: `${URL}/notes`,
+            data
+        });
+
+        // console.log(res.data);
+
+        window.location.reload();
+        console.log(res.data);
+    } catch (err) {
+        // console.log(1)
+        // console.log(err);
+        alert(err.response.data.message);
+    }
     heading.value = '';
     body.value = '';
     heading.setAttribute('placeholder', 'TODO');
@@ -42,70 +51,90 @@ heading.addEventListener('click', (e) => {
     console.log(body);
 });
 
-//delete a note
-const container = document.querySelector('.contain');
-const delete_btns = document.querySelectorAll('.bi-trash');
-const delete_panel = document.querySelector('.delete');
-const del_yes = document.querySelector('#del-yes-btn');
-const del_no = document.querySelector('#del-no-btn');
+//--------------------Note activitiess-----------------------
 
-delete_btns.forEach((del_btn) => {
-    del_btn.addEventListener('click', () => {
-        blur_body();
-    });
-});
-
-del_yes.addEventListener('click', async () => {
-    await fetch('/note', {
-        method: 'delete',
-        id: noteId
-    });
-    unblur_body();
-});
-del_no.addEventListener('click', () => {
-    unblur_body();
-});
-
-//-----------------------Edit note--------------------
-
-const edit_btns = document.querySelectorAll('.bi-pencil');
-
-edit_btns.forEach((edit_btn) => {
-    edit_btn.addEventListener('click', async () => {
-        container.style.filter = 'blur(2px)';
-        edit_panel.style.display = 'block';
-        // console.log(noteId);
-
-        await fetch('/note', {
-            method: 'get',
-            id: noteId
-        });
-    });
-});
+let noteId = '';
+let originaltitle = '';
+let originalbody = '';
 const edit_panel = document.querySelector('.edit');
 const edit_title = edit_panel.querySelector('input');
 const edit_body = edit_panel.querySelector('textarea');
 
-const edit_panel_btn = document.querySelector('#note-edit-btn');
-const cancel_panel_btn = document.querySelector('#note-cancel-btn');
-console.log(cancel_panel_btn);
-data = {};
+const edit = edit_panel.querySelector('#note-edit-btn');
+const delete_ = edit_panel.querySelector('#note-delete-btn');
 
-edit_panel_btn.addEventListener('click', async () => {
-    // console.log(noteId)
-    await fetch('/note', {
-        method: 'update',
-        data: {
-            id: noteId,
-            title: edit_title.value,
-            body: edit_body.value.trim()
+cards.forEach((card) => {
+    card.addEventListener('click', () => {
+        if (outside == false) {
+            noteId = card.getAttribute('noteid');
+
+            setTimeout(() => {
+                outside = true;
+                // console.log('note')
+            }, 200);
+            originaltitle = edit_title.value;
+            originalbody = edit_body.value;
+            container.style.filter = 'blur(2px)';
+            edit_panel.style.display = 'block';
         }
     });
-    unblur_body();
+});
+container.addEventListener('click', () => {
+    if (outside) {
+        unblur_body();
+        outside = false;
+        // console.log('contain')
+    }
 });
 
-cancel_panel_btn.addEventListener('click', () => {
-    unblur_body();
+//-------------------------Edit Request---------------------
+edit.addEventListener('click', async () => {
+    try {
+        let res = await axios({
+            method: 'PATCH',
+            url: `${URL}/notes/${noteId}`,
+            data: {
+                title: edit_title.value,
+                body: edit_body.value
+            }
+        });
+
+        window.location.reload();
+    } catch (err) {
+        alert(err.response.data.message);
+    }
+});
+
+//----------------------Delete--------------------
+const delete_panel = document.querySelector('.delete');
+const del_yes = delete_panel.querySelector('#del-yes-btn');
+const del_no = delete_panel.querySelector('#del-no-btn');
+
+delete_.addEventListener('click', () => {
+    delete_panel.style.display = 'block';
+    container.style.filter = 'blur(2px)';
+    edit_panel.style.display = 'none';
+});
+
+del_no.addEventListener('click', () => {
+    delete_panel.style.display = 'none';
+    edit_panel.style.display = 'block';
+});
+
+del_yes.addEventListener('click', async () => {
+    try {
+        let res = await axios({
+            method: 'DELETE',
+            url: `${URL}/notes/${noteId}`
+        });
+
+        window.location.reload();
+        console.log(res.data);
+    } catch (err) {
+        // console.log(1)
+        // console.log(err);
+        alert(err.response.data.message);
+    }
 });
 
 //------------Profilee-----------
@@ -118,32 +147,66 @@ profile_pic.addEventListener('click', () => {
     profile_panel.classList.add('active');
 });
 
-profile_cross.addEventListener( 'click', () =>{
-    profile_pic.style.display = 'block' ;
+profile_cross.addEventListener('click', () => {
+    profile_pic.style.display = 'block';
     profile_panel.classList.remove('active');
+});
 
-})
+//-----------update----------
+const update = profile_panel.querySelector('#update');
+const update_panel = document.querySelector('.update');
+const update_cross = update_panel.querySelector('.bi');
+const update_form = update_panel.querySelector('form');
 
-//-----------Reset----------
-const reset = profile_panel.querySelector('button')
-const reset_panel = document.querySelector('.reset')
-const pass_update = reset_panel.querySelector('button')
-const reset_cross = reset_panel.querySelector('.bi')
-
-reset.addEventListener('click',()=>{
-    reset_panel.classList.add('active')
+update.addEventListener('click', () => {
+    outside = true;
+    update_panel.classList.add('active');
     container.style.filter = 'blur(2px)';
     profile_panel.style.filter = 'blur(2px)';
-})
+});
 
-reset_cross.addEventListener('click',()=>{
-    unblur_body()
-})
+update_cross.addEventListener('click', () => {
+    unblur_body();
+});
 
-pass_update.addEventListener('click', ()=>{
-    unblur_body()
-})
+update_form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    try {
+        let res = await axios({
+            method: 'PATCH',
+            url: `${URL}/users/updatePassword`,
+            data: {
+                oldPassword: update_panel.querySelector('#oldPassword').value,
+                password: update_panel.querySelector('#password').value,
+                passwordConfirm:
+                    update_panel.querySelector('#passwordConfirm').value
+            }
+        });
 
+        // console.log(res.data);
+        // console.log(res);
+        unblur_body();
+    } catch (err) {
+        // console.log(1)
+        // console.log(err);
+        alert(err.response.data.message);
+    }
+});
+
+//---------------------Logout-----------------------
+const logout = profile_panel.querySelector('#logout');
+logout.addEventListener('click', async () => {
+    try {
+        await axios({
+            method: 'DELETE',
+            url: `${URL}/users/logout`
+        });
+
+        window.location.replace('http://localhost:3000/');
+    } catch (err) {
+        alert(err.response.data.message);
+    }
+});
 // utilities
 
 const blur_body = function () {
@@ -154,7 +217,12 @@ const blur_body = function () {
 const unblur_body = function () {
     container.style.filter = '';
     profile_panel.style.filter = '';
-    reset_panel.classList.remove('active')
+    update_panel.classList.remove('active');
+    update_panel.querySelectorAll('input').forEach((in_) => {
+        in_.value = '';
+    });
     delete_panel.style.display = 'none';
     edit_panel.style.display = 'none';
+    edit_title.value = originaltitle;
+    edit_body.value = originalbody;
 };

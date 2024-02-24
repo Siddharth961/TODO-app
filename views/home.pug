@@ -23,56 +23,15 @@ html(lang='en')
           button#add-btn(type='button') Add
       section.second
         .col-8.border
-          .col-lg-3.my-card(noteid='${note.id1}')
-            .mycard-title.px-3.pt-2
-              | My TODO app
-            .mycard-body.fs-5.px-3.pt-1
-              | This is body
-            .mycard-data
-              span Date
-              span
-                i.bi.bi-pencil.text-primary.mx-2
-                i.bi.bi-trash.text-danger.mx-1
-          .col-lg-3.my-card(noteid='${note.id2}')
-            .mycard-title.px-3.pt-2
-              | My TODO app
-            .mycard-body.fs-5.px-3.pt-1
-              | This is body
-            .mycard-data
-              span Date
-              span
-                i.bi.bi-pencil.text-primary.mx-2
-                i.bi.bi-trash.text-danger.mx-1
-          .col-lg-3.my-card(noteid='${note.id3}')
-            .mycard-title.px-3.pt-2
-              | My TODO app
-            .mycard-body.fs-5.px-3.pt-1
-              | This is body
-            .mycard-data
-              span Date
-              span
-                i.bi.bi-pencil.text-primary.mx-2
-                i.bi.bi-trash.text-danger.mx-1
-          .col-lg-3.my-card(noteid='${note.id4}')
-            .mycard-title.px-3.pt-2
-              | My TODO app
-            .mycard-body.fs-5.px-3.pt-1
-              | This is body
-            .mycard-data
-              span Date
-              span
-                i.bi.bi-pencil.text-primary.mx-2
-                i.bi.bi-trash.text-danger.mx-1
-          .col-lg-3.my-card(noteid='${note.id5}')
-            .mycard-title.px-3.pt-2
-              | My TODO app
-            .mycard-body.fs-5.px-3.pt-1
-              | This is body
-            .mycard-data
-              span Date
-              span
-                i.bi.bi-pencil.text-primary.mx-2
-                i.bi.bi-trash.text-danger.mx-1
+          each note in notes
+            .col-lg-3.my-card(noteid= note.id)
+              .mycard-title.px-3.pt-2
+                | #{note.title}
+              .mycard-body.fs-5.px-3.pt-1
+                | #{note.body}
+              .mycard-data
+                span= note.createdAt
+                        
       footer
         div
           | Copyright 
@@ -92,35 +51,39 @@ html(lang='en')
         |  
         textarea#body(name='body', cols='30', rows='4') &quot;${note.body}&quot;
         .d-flex.justify-content-between.px-4.pt-2
-          button#note-edit-btn(type='button') Edit
-          button#note-cancel-btn(type='button') Cancel
+          button#note-edit-btn(type='button' class='red') Edit
+          button#note-delete-btn(type='button' class='red-inverse') Delete
     // Profile
-    .profile.col-3.border
+    .profile.col-md-2.col-9.border
       h4
         i.bi.bi-x-lg
       h1
         i.bi.bi-person-fill
-      h6 Siddharth jain
-      p jainsiddharth.rattan1@gmail.com
-      button Change Password
+      h6= user.name
+      p= user.email
+      button#update.red.col-md-7.col-11 Change Password
+      button#logout.red-inverse.col-md-7.col-11 LogOut
     //
       <div class="fake-screen">
       dc
       </div>
     // Reset Password
-    .reset.col-lg-3.col-10.p-3
+    .update.col-lg-3.col-10.p-3
       h4
         i.bi.bi-x-lg.float-end
-      form(action='/reset', enctype='application/x-www-form-urlencoded', method='POST')
+      form( autocomplete = 'false')
         .fs-3.text-center.mb-4 Change Password
         .mb-3
-          label.form-label(for='password') Current Password
-          input#exampleInputPassword1.form-control(name='password', type='password', placeholder='*********')
+          label.form-label(for='oldPassword') Current Password
+          input#oldPassword.form-control(name='oldPassword', type='password', placeholder='*********', required)
         .mb-3
-          label.form-label(for='passwordNew') New Password
-          input#exampleInputPassword1.form-control(name='passwordNew', type='password', placeholder='*********')
+          label.form-label(for='password') New Password
+          input#password.form-control(name='password', type='password', placeholder='*********', required)
         .mb-4
           label.form-label(for='passwordConfirm') Confirm Password
-          input#exampleInputPassword1.form-control(name='passwordConfirm', type='password', placeholder='*********')
+          input#passwordConfirm.form-control(name='passwordConfirm', type='password', placeholder='*********', required)
         button.btn.pass-update-btn(type='submit') Update Password
+
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js', integrity='sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL', crossorigin='anonymous')
+    script(src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js")
     script(src='home.js')
