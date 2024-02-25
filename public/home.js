@@ -63,8 +63,12 @@ cards.forEach((card) => {
             setTimeout(() => {
                 outside = true;
             }, 200);
-            edit_title.value = card.querySelector('.mycard-title').textContent.trim();
-            edit_body.value = card.querySelector('.mycard-body').textContent.trim();
+            edit_title.value = card
+                .querySelector('.mycard-title')
+                .textContent.trim();
+            edit_body.value = card
+                .querySelector('.mycard-body')
+                .textContent.trim();
             container.style.filter = 'blur(2px)';
             edit_panel.style.display = 'block';
         }
@@ -185,7 +189,7 @@ logout.addEventListener('click', async () => {
             url: `${URL}/users/logout`
         });
 
-        window.location.replace('http://localhost:3000/');
+        window.location.replace(`${URL}`);
     } catch (err) {
         alert(err.response.data.message);
     }
