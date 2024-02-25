@@ -4,12 +4,12 @@ const noteSchema = mongoose.Schema({
     title: {
         type: String,
         required: true,
-        maxLength: 70
+        maxLength: 100
     },
     body: {
         type: String,
         required: true,
-        maxLength: 600
+        maxLength: 1000
     },
     userId: {
         type: String,
