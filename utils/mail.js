@@ -13,7 +13,7 @@ const sendMail = async (options) => {
     });
 
     const mailOptions = {
-        from: process.env.GMAIL_USER,
+        from: `TODO Server <${process.env.GMAIL_USER}`,
         to: options.email,
         subject: options.subject,
         text: options.message

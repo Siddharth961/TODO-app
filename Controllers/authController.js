@@ -65,13 +65,10 @@ exports.login = catchAsync(async (req, res, next) => {
 
 //-----------------Logout------------------
 exports.logout = (req, res, next) => {
-    
-        
-        res.cookie('jwt', '');
-        res.status(204).json({
-            status: 'success'
-        });
-    
+    res.cookie('jwt', '');
+    res.status(204).json({
+        status: 'success'
+    });
 };
 //--------------------------------------Authenticate (verify if user is logged in)------------------------------------
 exports.authenticate = catchAsync(async (req, res, next) => {
@@ -110,7 +107,7 @@ exports.authenticate = catchAsync(async (req, res, next) => {
 
 //-------------------------------------Update User password (not Reset)-------------------------------
 exports.updatePassword = catchAsync(async (req, res, next) => {
-    console.log(req.body);
+    
     const user = await User.findById(req.user.id);
 
     const verify = await user.checkPassword(
@@ -145,7 +142,7 @@ exports.forgot = catchAsync(async (req, res, next) => {
         'host'
     )}/resetPassword/${resetToken}`;
 
-    const message = `Forgot Password? Make Patch request at: ${resetURL}.\n If you didn't forget password, please ignore this mail`;
+    const message = `Forgot Password? Make request at: ${resetURL}.\n If you didn't forget password, please ignore this mail`;
 
     try {
         await sendEmail({

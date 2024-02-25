@@ -16,7 +16,6 @@ let data = {};
 add_btn.addEventListener('click', async () => {
     data['title'] = heading.value;
     data['body'] = body.value;
-    console.log(data);
 
     try {
         let res = await axios({
@@ -25,13 +24,8 @@ add_btn.addEventListener('click', async () => {
             data
         });
 
-        // console.log(res.data);
-
         window.location.reload();
-        console.log(res.data);
     } catch (err) {
-        // console.log(1)
-        // console.log(err);
         alert(err.response.data.message);
     }
     heading.value = '';
@@ -48,14 +42,12 @@ heading.addEventListener('click', (e) => {
     body.classList.add('active');
     add_btn.classList.add('active');
     first.style.height = '65vh';
-    console.log(body);
 });
 
 //--------------------Note activitiess-----------------------
 
 let noteId = '';
-let originaltitle = '';
-let originalbody = '';
+
 const edit_panel = document.querySelector('.edit');
 const edit_title = edit_panel.querySelector('input');
 const edit_body = edit_panel.querySelector('textarea');
@@ -70,10 +62,9 @@ cards.forEach((card) => {
 
             setTimeout(() => {
                 outside = true;
-                // console.log('note')
             }, 200);
-            originaltitle = edit_title.value;
-            originalbody = edit_body.value;
+            edit_title.value = card.querySelector('.mycard-title').textContent.trim();
+            edit_body.value = card.querySelector('.mycard-body').textContent.trim();
             container.style.filter = 'blur(2px)';
             edit_panel.style.display = 'block';
         }
@@ -83,7 +74,6 @@ container.addEventListener('click', () => {
     if (outside) {
         unblur_body();
         outside = false;
-        // console.log('contain')
     }
 });
 
@@ -129,10 +119,7 @@ del_yes.addEventListener('click', async () => {
         });
 
         window.location.reload();
-        console.log(res.data);
     } catch (err) {
-        // console.log(1)
-        // console.log(err);
         alert(err.response.data.message);
     }
 });
@@ -183,12 +170,8 @@ update_form.addEventListener('submit', async (e) => {
             }
         });
 
-        // console.log(res.data);
-        // console.log(res);
         unblur_body();
     } catch (err) {
-        // console.log(1)
-        // console.log(err);
         alert(err.response.data.message);
     }
 });
@@ -223,6 +206,4 @@ const unblur_body = function () {
     });
     delete_panel.style.display = 'none';
     edit_panel.style.display = 'none';
-    edit_title.value = originaltitle;
-    edit_body.value = originalbody;
 };

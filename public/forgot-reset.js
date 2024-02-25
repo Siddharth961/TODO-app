@@ -51,8 +51,7 @@ if (reset_form) {
 
             window.location.replace(`${URL}/home`);
         } catch (err) {
-            // console.log(1)
-            console.log(err);
+            
             alert(err.response.data.message);
         }
     });

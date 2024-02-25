@@ -27,7 +27,7 @@ const noteSchema = mongoose.Schema({
 noteSchema.pre('save', function (next) {
     if (this.isNew) {
         this.createdAt = 'Created ' + new Date().toLocaleString();
-        this.createDate = Date.now()
+        this.createDate = Date.now();
     }
 
     //console.log(this.createdAt)
