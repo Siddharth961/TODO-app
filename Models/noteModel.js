@@ -26,7 +26,7 @@ const noteSchema = mongoose.Schema({
 
 noteSchema.pre('save', function (next) {
     if (this.isNew) {
-        this.createdAt = 'Created ' + new Date().toLocaleString();
+        this.createdAt = 'Created ' + new Date().toLocaleString({timeZone : "Asia/Kolkata"});
         this.createDate = Date.now();
     }
 
@@ -36,7 +36,7 @@ noteSchema.pre('save', function (next) {
 
 noteSchema.pre('save', function (next) {
     if ((this.isModified('title') || this.isModified('body')) && !this.isNew) {
-        this.createdAt = 'Edited ' + new Date().toLocaleString();
+        this.createdAt = 'Edited ' + new Date().toLocaleString({timeZone : "Asia/Kolkata"});
     }
     next();
 });
