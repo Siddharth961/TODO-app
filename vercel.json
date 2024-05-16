@@ -4,9 +4,9 @@
     "src": "./server.js",
     "use": "@now/node-server"
   }],
-  "routes": [{"handle": "filesystem"},
+  "routes": [
     {
-      "src": "/.*",
+      "src": "/(.*)",
       "dest": "server.js"
     }
   ]
